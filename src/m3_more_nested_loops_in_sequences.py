@@ -4,21 +4,21 @@ in the context of SEQUENCES OF SUB-SEQUENCES.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Jack Wilson.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
     """ Calls the other functions to test them. """
-    run_test_largest_number()
-    run_test_largest_negative_number()
+    # run_test_largest_number()
+    # run_test_largest_negative_number()
     run_test_first_is_elsewhere_too()
 
 
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DONE: 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # -------------------------------------------------------------------------
@@ -44,7 +44,10 @@ def run_test_largest_number():
     answer = largest_number(([], [], []))
     print('Expected and actual are:', expected, answer)
 
-    # TODO 2 (continued): Add your ADDITIONAL test(s) here:
+    # DONE 2 (continued): Add your ADDITIONAL test(s) here:
+    expected = 0
+    answer = largest_number(([-1, -1, -3], [-1, -11, -20, 0]))
+    print('Expected and actual are:', expected, answer)
 
 
 def largest_number(seq_seq):
@@ -72,8 +75,21 @@ def largest_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+    largest = None
+    for a in range(len(seq_seq)):
+        for b in range(len(seq_seq[a])):
+            if len(seq_seq[a]) > 0:
+                largest = seq_seq[a][b]
+    if largest == None:
+        return largest
+    for i in range(len(seq_seq)):
+        for j in range(len(seq_seq[i])):
+            if seq_seq[i][j] > largest:
+                largest = seq_seq[i][j]
+    return largest
+
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
 
@@ -81,7 +97,7 @@ def largest_number(seq_seq):
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DONE: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -91,6 +107,16 @@ def run_test_largest_negative_number():
     print('-------------------------------------------------')
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
+    expected = -1
+    answer = largest_negative_number([[-2, 3, -4], [-1, 4, 10], [1, 5]])
+    print('Expected and actual are: ', expected, answer)
+
+    expected = -2
+    answer = largest_negative_number([[-2, 3, -4], [-51, 4, 10], [1, 5]])
+    print('Expected and actual are: ', expected, answer)
+    expected = -4
+    answer = largest_negative_number([[-32, 3, -4], [-51, 4, 10], [1, 5]])
+    print('Expected and actual are: ', expected, answer)
 
 
 def largest_negative_number(seq_seq):
@@ -115,8 +141,21 @@ def largest_negative_number(seq_seq):
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
+    largest = None
+    for a in range(len(seq_seq)):
+        for b in range(len(seq_seq[a])):
+            if len(seq_seq[a]) > 0:
+                break
+    for i in range(len(seq_seq)):
+        for j in range(len(seq_seq[i])):
+            if largest == None:
+                if seq_seq[i][j] < 0:
+                    largest = seq_seq[i][j]
+            elif seq_seq[i][j] > largest and seq_seq[i][j] < 0:
+                largest = seq_seq[i][j]
+    return largest
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
@@ -148,7 +187,7 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([(3, 1, 4),
                                      (13, 10, 11, 7, 10),
                                      [11, 12, 3, 10]])
-    print('Expected and actual are:', expected, answer)
+    print('1. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -157,14 +196,14 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([(3, 1, 4),
                                      (13, 10, 11, 7, 10),
                                      [11, 2, 13, 14]])
-    print('Expected and actual are:', expected, answer)
+    print('2. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 3:
     expected = False
     answer = first_is_elsewhere_too([[], [1, 2], [1, 2]])
-    print('Expected and actual are:', expected, answer)
+    print('3. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -173,7 +212,7 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([('a', 9),
                                      (13, 10, 11, 7, 'a'),
                                      [11, 12, 3, 10]])
-    print('Expected and actual are:', expected, answer)
+    print('4. Expected and actual are:', expected, answer)
     print(message[answer == expected])  # Test 1:
     no_failures = no_failures and (answer == expected)
 
@@ -182,56 +221,56 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([('a', 9),
                                      (13, 10, 11, 7, 'aa'),
                                      [11, 12, 3, 10]])
-    print('Expected and actual are:', expected, answer)
+    print('5. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 6:
     expected = False
     answer = first_is_elsewhere_too([('a', 'a', 'b', 'b', 'a', 'b')])
-    print('Expected and actual are:', expected, answer)
+    print('6. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 7:
     expected = False
     answer = first_is_elsewhere_too([()])
-    print('Expected and actual are:', expected, answer)
+    print('7. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 8:
     expected = True
     answer = first_is_elsewhere_too([('a'), (), (), (), ('a')])
-    print('Expected and actual are:', expected, answer)
+    print('8. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 9:
     expected = True
     answer = first_is_elsewhere_too([('a'), (), (), (), ('a'), ()])
-    print('Expected and actual are:', expected, answer)
+    print('9. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 10:
     expected = False
     answer = first_is_elsewhere_too([('a'), (), (), (), ('b'), ()])
-    print('Expected and actual are:', expected, answer)
+    print('10. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 11:
     expected = True
     answer = first_is_elsewhere_too(['hello', 'goodbye'])
-    print('Expected and actual are:', expected, answer)
+    print('11. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 12:
     expected = False
     answer = first_is_elsewhere_too(['hello', 'xxxxxxxxxxx'])
-    print('Expected and actual are:', expected, answer)
+    print('12. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -244,7 +283,7 @@ def run_test_first_is_elsewhere_too():
                                      'get my sticks',
                                      'seven eight nine',
                                      'i am fine'])
-    print('Expected and actual are:', expected, answer)
+    print('13. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -253,7 +292,7 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([(1000 * 'a') + 'b' + (500 * 'a'),
                                      (800 * 'c') + 'd' + 1200 * 'c',
                                      'b'])
-    print('Expected and actual are:', expected, answer)
+    print('14. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -263,7 +302,7 @@ def run_test_first_is_elsewhere_too():
                                      (800 * 'c') + 'd' + 1200 * 'c',
                                      (700 * 'eee') + 'b' + (90 * 'd'),
                                      (800 * 'c') + 'd' + 1200 * 'c'])
-    print('Expected and actual are:', expected, answer)
+    print('15. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -272,7 +311,7 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([(1000 * 'b') + 'acd' + (500 * 'f'),
                                      (800 * '1') + '234a',
                                      'eeee'])
-    print('Expected and actual are:', expected, answer)
+    print('16. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -281,7 +320,7 @@ def run_test_first_is_elsewhere_too():
     answer = first_is_elsewhere_too([(1000 * 'b') + 'acd' + (500 * 'f'),
                                      'a' + (800 * '1') + '234',
                                      '123'])
-    print('Expected and actual are:', expected, answer)
+    print('17. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -297,14 +336,14 @@ def run_test_first_is_elsewhere_too():
 
     expected = True
     answer = first_is_elsewhere_too(test1 + ['a'] + test2)
-    print('Expected and actual are:', expected, answer)
+    print('18. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
     # Test 19 (continues test 18):
     expected = False
     answer = first_is_elsewhere_too(test1 + test2)
-    print('Expected and actual are:', expected, answer)
+    print('19. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -312,7 +351,7 @@ def run_test_first_is_elsewhere_too():
     expected = True
     a_inside = (100 * 'b') + 'a' + (100 * 'b')
     answer = first_is_elsewhere_too(test1 + [a_inside] + test2)
-    print('Expected and actual are:', expected, answer)
+    print('20. Expected and actual are:', expected, answer)
     print(message[answer == expected])
     no_failures = no_failures and (answer == expected)
 
@@ -355,8 +394,22 @@ def first_is_elsewhere_too(seq_seq):
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences.
     """
+    x = None
+    for i in range(len(seq_seq)):
+        if len(seq_seq[0]) > 0:
+             x = seq_seq[0]
+    if x == None:
+        return False
+    for i in range(1, len(seq_seq)):
+        for j in range(len(seq_seq[i])):
+            for k in range(len(x)):
+                # print('Comparing ', x[k], ' to ', seq_seq[i][j])
+                if x[k] == seq_seq[i][j]:
+                    # print('Found ', x[0], ' at sequence ', i, ', index ', j)
+                    return True
+    return False
     # -------------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # DONE: 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
